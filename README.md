@@ -1,0 +1,4 @@
+JSONC
+=====
+
+JSON compressor
