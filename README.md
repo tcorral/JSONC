@@ -10,12 +10,16 @@ The rate compression could variate from 8% to 30% depending of the type and valu
 Use lz-string library to compress more https://github.com/pieroxy/lz-string/
 
 
-Ex. Original - 17331 bytes
+Ex.
+
+    Original - 17331 bytes
     Compressed using JSONC - 16025 bytes
     Compression rate - 7.5%
+
 
     Original compressed using lz-string - 3822 bytes
     Compressed using JSONC using lz-string - 3689 bytes
     Compression rate - 3,4%
+
 
     Compression rate from original to compressed using JSONC and lz-string - 78.71%
