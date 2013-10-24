@@ -49,6 +49,20 @@
   {
     return toString.call( obj ) === "[object Array]";
   }
+  function biDimensionalArrayToObject( aArr )
+  {
+    var obj = {},
+        nIndex,
+        nLen = aArr.length,
+        oItem,
+        sKey;
+    for( nIndex = 0; nIndex < nLen; nIndex++ )
+    {
+      oItem = aArr[nIndex];
+      obj[oItem[0]] = oItem[1];
+    }
+    return obj;
+  }
   function _numberToKey ( index, totalChar, offset ){
     totalChar = totalChar || 25;
     offset = offset || 65;
@@ -66,40 +80,40 @@
   {
     return String.fromCharCode.apply(String, aKeys);
   }
-  function _getKeys ( json )
+  function _getKeys ( json, aKeys )
   {
-    var oKeys = [],
-      aKey,
+    var aKey,
       sKey,
       oItem;
 
     for ( sKey in json )
     {
+
       if ( json.hasOwnProperty( sKey ) )
       {
         oItem = json[sKey];
-        if (_isObject( oItem ) || _isArray( oItem ) )
+        if ( _isObject( oItem ) || _isArray( oItem ) )
         {
-          oKeys = oKeys.concat( _getKeys( oItem ) );
+          aKeys = aKeys.concat( _getKeys( oItem, aKeys).unique() );
         }
-        if(isNaN(Number(sKey)))
+        if ( isNaN( Number( sKey ) ) )
         {
-          _nCode += 1;
-          if ( !oKeys.contains( sKey ) )
+          if ( !aKeys.contains( sKey ) )
           {
+            _nCode += 1;
             aKey = [];
             aKey.push( _getSpecialKey( _numberToKey( _nCode ) ), sKey );
-            oKeys.push( aKey );
+            aKeys.push( aKey );
           }
         }
       }
     }
-    return oKeys;
+    return aKeys;
   }
-
-  JSONC.compress = function ( json )
+  JSONC.compress = function ( json, optKeys )
   {
-    var aKeys,
+    var aKeys = optKeys || [],
+      oKeys,
       aKey,
       obj,
       str,
@@ -109,13 +123,15 @@
     {
       for ( nIndex = 0, nLenKeys = json.length; nIndex < nLenKeys; nIndex++ )
       {
-        json[nIndex] = this.compress( json[nIndex] );
+        json[nIndex] = this.compress( json[nIndex], aKeys );
       }
     }
     else
     {
-      aKeys = _getKeys( json );
+      aKeys = _getKeys( json, aKeys );
       aKeys = aKeys.unique();
+      oKeys = biDimensionalArrayToObject( aKeys );
+
       str = JSON.stringify( json );
       nLenKeys = aKeys.length;
 
@@ -126,14 +142,14 @@
       }
 
       obj = JSON.parse( str );
-      obj._ = aKeys;
+      obj._ = oKeys;
     }
     return obj || json;
   };
   JSONC.decompress = function ( json )
   {
-    var aKeys,
-      nIndex,
+    var nIndex,
+      oKeys,
       str,
       nLenKeys,
       jsonCopy = JSON.parse( JSON.stringify( json ) );
@@ -146,14 +162,15 @@
     }
     else
     {
-      aKeys = jsonCopy._.concat();
-      nLenKeys = aKeys.length;
+      oKeys = JSON.parse( JSON.stringify( jsonCopy._ ) );
       delete jsonCopy._;
       str = JSON.stringify( jsonCopy );
-      for ( nIndex = 0; nIndex < nLenKeys; nIndex++ )
+      for( sKey in oKeys)
       {
-        aKey = aKeys[nIndex];
-        str = str.replace( new RegExp( '"' + aKey[0] + '"', "g" ), '"' +  aKey[1] + '"' );
+        if(oKeys.hasOwnProperty(sKey))
+        {
+          str = str.replace( new RegExp( '"' + sKey + '"', "g" ), '"' +  oKeys[sKey] + '"' );
+        }
       }
     }
     return str ? JSON.parse(str): json ;

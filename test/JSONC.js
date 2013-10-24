@@ -20,7 +20,7 @@ TestCase('JSONC.compress', {
           'test': 'result'
         },
         expected = {
-          _: [ [ "A",'test' ] ],
+          _: {"A":'test'},
           A: 'result'
         },
         retrieved;
@@ -38,7 +38,7 @@ TestCase('JSONC.decompress', {
         'test': 'result'
       },
       original = {
-        _: [ [ "A",'test' ] ],
+        _: {"A":'test'},
         A: 'result'
       },
       retrieved;
