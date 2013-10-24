@@ -260,6 +260,7 @@ var obj = {
         </div>
         <script type="text/javascript" src="../src/JSONC.js"></script>
         <script type="text/javascript" src="data/data.js"></script>
+        <script type="text/javascript" src="vendor/lz-string-1.0.2.js"></script>
         <script type="text/javascript">
             var json_c = Namespace.JSONC.compress( obj );
             var json_unc = Namespace.JSONC.decompress( json_c );
@@ -269,6 +270,15 @@ var obj = {
             document.getElementById('result_uncomp').innerHTML = "Uncompressed size: " + JSON.stringify(json_unc).length;
             console.log( 'Comp:', JSON.stringify( json_c ).length, json_c );
             console.log( 'UnComp:', JSON.stringify( json_unc ).length, json_unc );
+
+            var json_cComp = LZString.compress(JSON.stringify(json_c));
+            var json_uncComp = LZString.compress(JSON.stringify(json_unc));
+
+            console.log( 'Comp bis:', json_cComp.length );
+            console.log( 'UnComp bis:', json_uncComp.length );
+
+            console.log( 'Comp deco:', JSON.parse(LZString.decompress(json_cComp) ));
+            console.log( 'UnComp deco:', JSON.parse(LZString.decompress(json_uncComp) ));
         </script>
     </body>
 </html>
