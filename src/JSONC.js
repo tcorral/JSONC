@@ -64,7 +64,7 @@
     return obj;
   }
   function _numberToKey ( index, totalChar, offset ){
-    totalChar = totalChar || 25;
+    totalChar = totalChar || 26;
     offset = offset || 65;
     var aArr = [];
     var currentChar = index;
