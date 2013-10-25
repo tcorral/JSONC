@@ -109,6 +109,41 @@
     }
     return aKeys;
   }
+  function compressArray ( json, aKeys )
+  {
+    var nIndex,
+        nLenKeys;
+
+    for ( nIndex = 0, nLenKeys = json.length; nIndex < nLenKeys; nIndex++ )
+    {
+      json[nIndex] = JSONC.compress( json[nIndex], aKeys );
+    }
+  }
+  function compressOther ( json, aKeys )
+  {
+    var oKeys,
+        aKey,
+        str,
+        nLenKeys,
+        nIndex,
+        obj;
+    aKeys = _getKeys( json, aKeys );
+    aKeys = aKeys.unique();
+    oKeys = biDimensionalArrayToObject( aKeys );
+
+    str = JSON.stringify( json );
+    nLenKeys = aKeys.length;
+
+    for ( nIndex = 0; nIndex < nLenKeys; nIndex++ )
+    {
+      aKey = aKeys[nIndex];
+      str = str.replace( new RegExp( RegExp.escape( '"' + aKey[1] + '"' ), "g" ), '"' + aKey[0] + '"' );
+    }
+
+    obj = JSON.parse( str );
+    obj._ = oKeys;
+    return obj;
+  }
   JSONC.compress = function ( json, optKeys )
   {
     if(!optKeys)
@@ -116,36 +151,14 @@
       _nCode = -1;
     }
     var aKeys = optKeys || [],
-      oKeys,
-      aKey,
-      obj,
-      str,
-      nIndex,
-      nLenKeys;
+      obj;
     if ( _isArray( json ) )
     {
-      for ( nIndex = 0, nLenKeys = json.length; nIndex < nLenKeys; nIndex++ )
-      {
-        json[nIndex] = this.compress( json[nIndex], aKeys );
-      }
+      compressArray( json, aKeys );
     }
     else
     {
-      aKeys = _getKeys( json, aKeys );
-      aKeys = aKeys.unique();
-      oKeys = biDimensionalArrayToObject( aKeys );
-
-      str = JSON.stringify( json );
-      nLenKeys = aKeys.length;
-
-      for ( nIndex = 0; nIndex < nLenKeys; nIndex++ )
-      {
-        aKey = aKeys[nIndex];
-        str = str.replace( new RegExp( RegExp.escape( '"' + aKey[1] + '"' ), "g" ), '"' + aKey[0] + '"' );
-      }
-
-      obj = JSON.parse( str );
-      obj._ = oKeys;
+      obj = compressOther ( json, aKeys );
     }
     return obj || json;
   };
