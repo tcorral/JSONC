@@ -54,8 +54,7 @@
     var obj = {},
         nIndex,
         nLen = aArr.length,
-        oItem,
-        sKey;
+        oItem;
     for( nIndex = 0; nIndex < nLen; nIndex++ )
     {
       oItem = aArr[nIndex];
