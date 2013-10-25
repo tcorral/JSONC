@@ -5,7 +5,7 @@ JSON compressor-decompressor is a library to compress big JSON data.
 
 This library should be used only when the improvement of compression is important is awful if you try to compress small json objects.
 
-The rate compression could variate from 8% to 30% depending of the type and values of data.
+The rate compression could variate from 7.5% to 32.81% depending of the type and values of data.
 
 Use lz-string library to compress more https://github.com/pieroxy/lz-string/
 
