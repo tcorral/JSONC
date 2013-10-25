@@ -111,6 +111,10 @@
   }
   JSONC.compress = function ( json, optKeys )
   {
+    if(!optKeys)
+    {
+      _nCode = -1;
+    }
     var aKeys = optKeys || [],
       oKeys,
       aKey,
