@@ -154,6 +154,7 @@
     var nIndex,
       oKeys,
       str,
+      sKey,
       nLenKeys,
       jsonCopy = JSON.parse( JSON.stringify( json ) );
     if ( _isArray( json ) )
