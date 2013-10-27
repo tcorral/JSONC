@@ -6,6 +6,7 @@ JSONC
 
 [Changelog](https://raw.github.com/tcorral/JSONC/master/changelog.txt)
 
+
 JSON compressor-decompressor is a library to compress big JSON data.
 
 This library should be used only when the improvement of compression is important is awful if you try to compress small json objects.
