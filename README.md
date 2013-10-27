@@ -26,39 +26,39 @@ See Usage for more details.
 
 ##Usage
 
-###Compress a JSON object:
+####Compress a JSON object:
 
     // Returns a JSON object but compressed.
     var compressedJSON = JSONC.compress( json );
 
-###Decompress a JSON object:
+####Decompress a JSON object:
 
     // Returns the original JSON object.
     var json = JSONC.decompress( compressedJSON );
 
-###Compress a normal JSON object as a LZW string:
+####Compress a normal JSON object as a LZW string:
 
     // Returns the LZW representation as string of the JSON object.
     var lzwString = JSONC.getLZWStringFromJSON( json );
 
-###Compress a JSON object as a LZW string after compress it using JSONC:
+####Compress a JSON object as a LZW string after compress it using JSONC:
 
     // Returns the LZW representation as string of the JSON object.
     var lzwString = JSONC.getLZWStringFromJSON( json, true );
 
-###Decompress a normal JSON object from a LZW string:
+####Decompress a normal JSON object from a LZW string:
 
     // Returns the original JSON object.
     var json = JSONC.getJSONFromLZWString( lzwString );
 
-###Decompress a JSON compressed object using JSONC from a LZW string:
+####Decompress a JSON compressed object using JSONC from a LZW string:
 
     // Returns the original JSON object.
     var json = JSONC.getJSONFromLZWString( lzwString, true );
 
 ## Examples of compression
 
-###Example data.js.
+####Example data.js.
 
     Original - 17331 bytes
     Compressed using JSONC - 16025 bytes
@@ -72,7 +72,7 @@ See Usage for more details.
 
     Compression rate from original to compressed using JSONC and lz-string - 78.71%
 
-###Example data2.js.
+####Example data2.js.
 
     Original - 19031 bytes
     Compressed using JSONC - 12787 bytes
