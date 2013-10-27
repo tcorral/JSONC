@@ -1,0 +1,27 @@
+{
+  "boss": true,
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "expr": true,
+  "immed": true,
+  "noarg": true,
+  "onevar": true,
+  "quotmark": "single",
+  "smarttabs": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+
+  "sub": true,
+
+  "browser": true,
+  "es5": false,
+
+  "globals": {
+    "Hydra": true,
+    "define": true,
+    "module": true,
+    "Event": true
+  }
+}
