@@ -513,7 +513,7 @@ var LZString = {
   };
 
   /*
-   * Expose Hydra to be used in node.js, as AMD module or as global
+   * Expose JSONC to be used in node.js, as AMD module or as global
    */
   root.JSONC = JSONC;
   if ( isNodeEnvironment )
