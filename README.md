@@ -28,27 +28,33 @@ See Usage for more details.
 
 ###Compress a JSON object:
 
-    var compressedJSON = JSONC.compress( json );    // Returns a JSON object but compressed.
+    // Returns a JSON object but compressed.
+    var compressedJSON = JSONC.compress( json );
 
 ###Decompress a JSON object:
 
-    var json = JSONC.decompress( compressedJSON );    // Returns the original JSON object.
+    // Returns the original JSON object.
+    var json = JSONC.decompress( compressedJSON );
 
 ###Compress a normal JSON object as a LZW string:
 
-    var lzwString = JSONC.getLZWStringFromJSON( json ); // Returns the LZW representation as string of the JSON object.
+    // Returns the LZW representation as string of the JSON object.
+    var lzwString = JSONC.getLZWStringFromJSON( json );
 
 ###Compress a JSON object as a LZW string after compress it using JSONC:
 
-    var lzwString = JSONC.getLZWStringFromJSON( json, true ); // Returns the LZW representation as string of the JSON object.
+    // Returns the LZW representation as string of the JSON object.
+    var lzwString = JSONC.getLZWStringFromJSON( json, true );
 
 ###Decompress a normal JSON object from a LZW string:
 
-    var json = JSONC.getJSONFromLZWString( lzwString ); // Returns the original JSON object.
+    // Returns the original JSON object.
+    var json = JSONC.getJSONFromLZWString( lzwString );
 
 ###Decompress a JSON compressed object using JSONC from a LZW string:
 
-    var json = JSONC.getJSONFromLZWString( lzwString, true ); // Returns the original JSON object.
+    // Returns the original JSON object.
+    var json = JSONC.getJSONFromLZWString( lzwString, true );
 
 ## Examples of compression
 
