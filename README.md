@@ -8,7 +8,7 @@ JSONC
 
 ## Background
 
-One of the problems you can have developing RIA applications using Javascript is the amount of data being transported to
+One of the problems you can have developing rich internet applications (RIA) using Javascript is the amount of data being transported to
 and from the server.
 When data comes from server, this data could be GZipped, but this is not possible when the big amount of data comes from
 the browser to the server.
