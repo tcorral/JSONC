@@ -5,6 +5,12 @@
       _nCode = -1,
       toString = {}.toString;
 
+  /**
+   * Checks if the value exist in the array.
+   * @param arr
+   * @param v
+   * @returns {boolean}
+   */
   function contains( arr, v )
   {
     var nIndex,
@@ -18,7 +24,11 @@
     }
     return false;
   }
-
+  /**
+   * Removes duplicated values in an array
+   * @param oldArray
+   * @returns {Array}
+   */
   function unique( oldArray ) {
     var nIndex,
       nLen = oldArray.length,
@@ -31,19 +41,42 @@
     }
     return aArr;
   }
+  /**
+   * Escapes a RegExp
+   * @param text
+   * @returns {*}
+   */
   function escapeRegExp( text )
   {
     return text.replace( /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&' );
   }
+  /**
+   * Returns if the obj is an object or not.
+   * @param obj
+   * @returns {boolean}
+   * @private
+   */
   function _isObject ( obj )
   {
     return toString.call( obj ) === '[object Object]';
   }
+  /**
+   * Returns if the obj is an array or not
+   * @param obj
+   * @returns {boolean}
+   * @private
+   */
   function _isArray ( obj )
   {
     return toString.call( obj ) === '[object Array]';
   }
-  function biDimensionalArrayToObject( aArr )
+  /**
+   * Converts a bidimensional array to object
+   * @param aArr
+   * @returns {{}}
+   * @private
+   */
+  function _biDimensionalArrayToObject( aArr )
   {
     var obj = {},
         nIndex,
@@ -56,6 +89,15 @@
     }
     return obj;
   }
+
+  /**
+   * Convert a number to their ascii code/s.
+   * @param index
+   * @param totalChar
+   * @param offset
+   * @returns {Array}
+   * @private
+   */
   function _numberToKey ( index, totalChar, offset ){
     var aArr = [],
       currentChar = index;
@@ -69,10 +111,25 @@
     aArr.push(currentChar + offset);
     return aArr.reverse();
   }
+
+  /**
+   * Returns the string using an array of ASCII values
+   * @param aKeys
+   * @returns {string}
+   * @private
+   */
   function _getSpecialKey ( aKeys )
   {
     return String.fromCharCode.apply(String, aKeys);
   }
+
+  /**
+   * Traverse all the objects looking for keys and set an array with the new keys
+   * @param json
+   * @param aKeys
+   * @returns {*}
+   * @private
+   */
   function _getKeys ( json, aKeys )
   {
     var aKey,
@@ -103,7 +160,14 @@
     }
     return aKeys;
   }
-  function compressArray( json, aKeys )
+
+  /**
+   * Method to compress array objects
+   * @private
+   * @param json
+   * @param aKeys
+   */
+  function _compressArray( json, aKeys )
   {
     var nIndex,
         nLenKeys;
@@ -113,7 +177,15 @@
       json[nIndex] = JSONC.compress( json[nIndex], aKeys );
     }
   }
-  function compressOther ( json, aKeys )
+
+  /**
+   * Method to compress anything but array
+   * @private
+   * @param json
+   * @param aKeys
+   * @returns {*}
+   */
+  function _compressOther ( json, aKeys )
   {
     var oKeys,
         aKey,
@@ -123,7 +195,7 @@
         obj;
     aKeys = _getKeys( json, aKeys );
     aKeys = unique( aKeys );
-    oKeys = biDimensionalArrayToObject( aKeys );
+    oKeys = _biDimensionalArrayToObject( aKeys );
 
     str = JSON.stringify( json );
     nLenKeys = aKeys.length;
@@ -138,6 +210,51 @@
     obj._ = oKeys;
     return obj;
   }
+
+  /**
+   * Method to decompress array objects
+   * @private
+   * @param json
+   */
+  function _decompressArray( json )
+  {
+    var nIndex, nLenKeys;
+
+    for ( nIndex = 0, nLenKeys = json.length; nIndex < nLenKeys; nIndex++ )
+    {
+      json[nIndex] = JSONC.decompress( json[nIndex] );
+    }
+  }
+
+  /**
+   * Method to decompress anything but array
+   * @private
+   * @param jsonCopy
+   * @returns {*}
+   */
+  function _decompressOther( jsonCopy )
+  {
+    var oKeys, str, sKey;
+
+    oKeys = JSON.parse( JSON.stringify( jsonCopy._ ) );
+    delete jsonCopy._;
+    str = JSON.stringify( jsonCopy );
+    for( sKey in oKeys)
+    {
+      if(oKeys.hasOwnProperty(sKey))
+      {
+        str = str.replace( new RegExp( '"' + sKey + '"', 'g' ), '"' +  oKeys[sKey] + '"' );
+      }
+    }
+    return str;
+  }
+
+  /**
+   * Compress a RAW JSON
+   * @param json
+   * @param optKeys
+   * @returns {*}
+   */
   JSONC.compress = function ( json, optKeys )
   {
     if(!optKeys)
@@ -149,45 +266,38 @@
 
     if ( _isArray( json ) )
     {
-      compressArray( json, aKeys );
+      _compressArray( json, aKeys );
       obj = json;
     }
     else
     {
-      obj = compressOther ( json, aKeys );
+      obj = _compressOther ( json, aKeys );
     }
     return obj;
   };
+  /**
+   * Decompress a compressed JSON
+   * @param json
+   * @returns {*}
+   */
   JSONC.decompress = function ( json )
   {
-    var nIndex,
-      oKeys,
-      str,
-      sKey,
-      nLenKeys,
+    var str,
       jsonCopy = JSON.parse( JSON.stringify( json ) );
-    if ( _isArray( json ) )
+    if ( _isArray( jsonCopy ) )
     {
-      for ( nIndex = 0, nLenKeys = json.length; nIndex < nLenKeys; nIndex++ )
-      {
-        json[nIndex] = this.decompress( json[nIndex] );
-      }
+      _decompressArray( jsonCopy );
     }
     else
     {
-      oKeys = JSON.parse( JSON.stringify( jsonCopy._ ) );
-      delete jsonCopy._;
-      str = JSON.stringify( jsonCopy );
-      for( sKey in oKeys)
-      {
-        if(oKeys.hasOwnProperty(sKey))
-        {
-          str = str.replace( new RegExp( '"' + sKey + '"', 'g' ), '"' +  oKeys[sKey] + '"' );
-        }
-      }
+      str = _decompressOther( jsonCopy );
     }
-    return str ? JSON.parse(str): json ;
+    return str ? JSON.parse(str): jsonCopy ;
   };
 
+  /**
+   * Expose the object to the namespace
+   * @type {{}}
+   */
   ns.JSONC = JSONC;
-}((window.Namespace = {})));
+}((this.Namespace = {})));

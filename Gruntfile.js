@@ -22,22 +22,13 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js'
       }
     },
-    compress: {
-      main: {
-        options: {
-          mode: 'gzip'
-        },
-        expand: true,
-        cwd: 'versions/',
-        src: ['jsonc.min.js'],
-        dest: 'versions/'
-      }
-    },
-    copy: {
-      main: {
-        files: [
-          {expand: true, cwd: 'src/', src: ['jsonc.js'], dest: 'versions/'}
-        ]
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ['vendor/lz-string-1.0.2.js', 'src/JSONC.js'],
+        dest: 'versions/jsonc.js'
       }
     },
     uglify: {
@@ -66,8 +57,19 @@ module.exports = function (grunt) {
         }
       },
       build: {
-        src: 'src/JSONC.js',
+        src: ['versions/jsonc.js'],
         dest: 'versions/jsonc.min.js'
+      }
+    },
+    compress: {
+      main: {
+        options: {
+          mode: 'gzip'
+        },
+        expand: true,
+        cwd: 'versions/',
+        src: ['jsonc.min.js'],
+        dest: 'versions/'
       }
     }
   });
@@ -75,11 +77,11 @@ module.exports = function (grunt) {
   // Load the plugins
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-compress');
-  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'karma', 'uglify', 'compress', 'copy']);
+  grunt.registerTask('default', ['jshint', 'karma', 'concat', 'uglify', 'compress']);
 
 };

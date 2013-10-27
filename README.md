@@ -1,5 +1,10 @@
 JSONC
 =====
+# Update to version 0.1.0
+
+[![Build Status](https://travis-ci.org/tcorral/JSONC.png)](https://travis-ci.org/tcorral/JSONC)
+
+[Changelog](https://raw.github.com/tcorral/JSONC/master/changelog.txt)
 
 JSON compressor-decompressor is a library to compress big JSON data.
 
