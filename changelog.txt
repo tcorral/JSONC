@@ -1,2 +1,5 @@
+0.3.0
+    Add new methods to allow the user to compress JSON objects using LZW even if the objects are not been compressed using
+     JSONC.compress.
 0.0.1
     First Commit
