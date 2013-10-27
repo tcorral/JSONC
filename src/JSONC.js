@@ -1,3 +1,4 @@
+/*global LZString*/
 (function ()
 {
 
@@ -219,7 +220,6 @@
       aKey = aKeys[nIndex];
       str = str.replace( new RegExp( escapeRegExp( '"' + aKey[1] + '"' ), 'g' ), '"' + aKey[0] + '"' );
     }
-
     obj = JSON.parse( str );
     obj._ = oKeys;
     return obj;
@@ -290,6 +290,17 @@
     return obj;
   };
   /**
+   * Use LZString to get the compressed string.
+   * @param json
+   * @param bCompress
+   * @returns {String}
+   */
+  JSONC.getLZWStringFromJSON = function( json, bCompress )
+  {
+    var str = JSON.stringify( (bCompress ? JSONC.compress( json ): json) );
+    return LZString.compress( str );
+  };
+  /**
    * Decompress a compressed JSON
    * @param json
    * @returns {*}
@@ -308,7 +319,18 @@
     }
     return str ? JSON.parse(str): jsonCopy ;
   };
-
+  /**
+   * Returns the JSON object from the LZW string
+   * @param lzw
+   * @param bDecompress
+   * @returns {Object}
+   */
+  JSONC.getJSONFromLZWString = function ( lzw, bDecompress )
+  {
+    var str = LZString.decompress( lzw ),
+        json = JSON.parse( str );
+    return bDecompress ? JSONC.decompress( json ) : json;
+  };
   /*
    * Expose Hydra to be used in node.js, as AMD module or as global
    */

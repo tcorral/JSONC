@@ -297,9 +297,12 @@ var obj = {
         <script type="text/javascript" src="data/data2.js"></script>
         <script type="text/javascript" src="../vendor/lz-string-1.0.2.js"></script>
         <script type="text/javascript">
+            var json_cc = JSONC.getLZWStringFromJSON( obj, true );
+            var unjson_cc = JSONC.getJSONFromLZWString( json_cc );
             var json_c = JSONC.compress( obj );
             var json_unc = JSONC.decompress( json_c );
             var json_c2 = JSONC.compress( obj2 );
+            var json_c3 = JSONC.compress( [{test:1,test2:2}, {test:3,test2:4}]);
             var json_unc2 = JSONC.decompress( json_c2 );
             var json_cComp = LZString.compress(JSON.stringify(json_c));
             var json_uncComp = LZString.compress(JSON.stringify(json_unc));

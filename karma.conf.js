@@ -7,6 +7,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'vendor/lz-string-1.0.2.js',
       'src/*.js',
       'test/*.js'
     ],

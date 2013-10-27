@@ -247,4 +247,96 @@ describe('JSONC.decompress', function (){
 
     expect(retrieved).toEqual(expected);
   });
+  describe('JSONC.getLZWStringFromJSON', function(){
+    it('should test that returns the expected string', function(){
+      var retrieved,
+          obj = {
+            'data': [
+              {
+                'test': 1,
+                'test2': 2,
+                'test3': 3
+              },
+              {
+                'test': 4,
+                'test2': 5,
+                'test3': 6
+              }
+            ]
+          },
+          expected = "㞂…ࡠ⸒׀浑䂦ٲ밈쀚ኣʠᦞਅ申耖㌞⸁壘쪸͡ꀗ䚐";
+
+      retrieved = JSONC.getLZWStringFromJSON( obj );
+
+      expect(retrieved).toEqual(expected);
+    });
+    it('should test that returns the expected string', function(){
+      var retrieved,
+        obj = {
+          'data': [
+            {
+              'test': 1,
+              'test2': 2,
+              'test3': 3
+            },
+            {
+              'test': 4,
+              'test2': 5,
+              'test3': 6
+            }
+          ]
+        },
+        expected = "㞂•⁜ඪࠥȰڄȒ肙偡⠙聟既耖吴聖岠ඐ腵借䩓℀ᜁ䰆盢ኔḃ멦ሏ᜾菱䢅쀉聃溪䈔␀";
+
+      retrieved = JSONC.getLZWStringFromJSON( obj, true );
+
+      expect(retrieved).toEqual(expected);
+    });
+  });
+  describe('JSONC.getJSONFromLZWString', function(){
+    it('should test that returns the expected object', function(){
+      var retrieved,
+        obj = {
+          'data': [
+            {
+              'test': 1,
+              'test2': 2,
+              'test3': 3
+            },
+            {
+              'test': 4,
+              'test2': 5,
+              'test3': 6
+            }
+          ]
+        },
+        lzw = "㞂…ࡠ⸒׀浑䂦ٲ밈쀚ኣʠᦞਅ申耖㌞⸁壘쪸͡ꀗ䚐";
+
+      retrieved = JSONC.getJSONFromLZWString( lzw );
+
+      expect(retrieved).toEqual(obj);
+    });
+    it('should test that returns the expected object', function(){
+      var retrieved,
+        obj = {
+          'data': [
+            {
+              'test': 1,
+              'test2': 2,
+              'test3': 3
+            },
+            {
+              'test': 4,
+              'test2': 5,
+              'test3': 6
+            }
+          ]
+        },
+        lzw = "㞂•⁜ඪࠥȰڄȒ肙偡⠙聟既耖吴聖岠ඐ腵借䩓℀ᜁ䰆盢ኔḃ멦ሏ᜾菱䢅쀉聃溪䈔␀";
+
+      retrieved = JSONC.getJSONFromLZWString( lzw, true );
+
+      expect(retrieved).toEqual(obj);
+    });
+  });
 });
