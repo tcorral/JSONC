@@ -258,27 +258,73 @@ var obj = {
         <div id="result_uncomp">
 
         </div>
+        <div id="result_lzw_comp">
+
+        </div>
+        <div id="result_lzw_uncomp">
+
+        </div>
+        <div id="result_lzw2_comp">
+
+        </div>
+        <div id="result_lzw2_uncomp">
+
+        </div>
+        <br/>
+        <div id="result_original2">
+
+        </div>
+        <div id="result_comp2">
+
+        </div>
+        <div id="result_uncomp2">
+
+        </div>
+        <div id="result_lzw_comp2">
+
+        </div>
+        <div id="result_lzw_uncomp2">
+
+        </div>
+        <div id="result_lzw2_comp2">
+
+        </div>
+        <div id="result_lzw2_uncomp2">
+
+        </div>
         <script type="text/javascript" src="../src/JSONC.js"></script>
+        <script type="text/javascript" src="data/data.js"></script>
         <script type="text/javascript" src="data/data2.js"></script>
         <script type="text/javascript" src="../vendor/lz-string-1.0.2.js"></script>
         <script type="text/javascript">
-            var json_c = Namespace.JSONC.compress( obj );
-            var json_unc = Namespace.JSONC.decompress( json_c );
-            console.log( 'Original:', JSON.stringify( obj ).length, obj );
+            var json_c = JSONC.compress( obj );
+            var json_unc = JSONC.decompress( json_c );
+            var json_c2 = JSONC.compress( obj2 );
+            var json_unc2 = JSONC.decompress( json_c2 );
+            var json_cComp = LZString.compress(JSON.stringify(json_c));
+            var json_uncComp = LZString.compress(JSON.stringify(json_unc));
+            var json_cComp2 = LZString.compress(JSON.stringify(json_c2));
+            var json_uncComp2 = LZString.compress(JSON.stringify(json_unc2));
+
             document.getElementById('result_original').innerHTML = "Original size: " + JSON.stringify(obj).length;
             document.getElementById('result_comp').innerHTML = "Compressed size: " + JSON.stringify(json_c).length;
             document.getElementById('result_uncomp').innerHTML = "Uncompressed size: " + JSON.stringify(json_unc).length;
-            console.log( 'Comp:', JSON.stringify( json_c ).length, json_c );
-            console.log( 'UnComp:', JSON.stringify( json_unc ).length, json_unc );
 
-            var json_cComp = LZString.compress(JSON.stringify(json_c));
-            var json_uncComp = LZString.compress(JSON.stringify(json_unc));
+            document.getElementById('result_original2').innerHTML = "Original 2 size: " + JSON.stringify(obj2).length;
+            document.getElementById('result_comp2').innerHTML = "Compressed 2 size: " + JSON.stringify(json_c2).length;
+            document.getElementById('result_uncomp2').innerHTML = "Uncompressed 2 size: " + JSON.stringify(json_unc2).length;
 
-            console.log( 'Comp bis:', json_cComp.length );
-            console.log( 'UnComp bis:', json_uncComp.length );
+            document.getElementById('result_lzw_comp').innerHTML = "LZW Compressed size: " + json_cComp.length;
+            document.getElementById('result_lzw_uncomp').innerHTML = "LZW Uncompressed size: " + json_uncComp.length;
 
-            console.log( 'Comp deco:', JSON.parse(LZString.decompress(json_cComp) ));
-            console.log( 'UnComp deco:', JSON.parse(LZString.decompress(json_uncComp) ));
+            document.getElementById('result_lzw2_comp').innerHTML = "UNLZW Compressed size: " + LZString.decompress(json_cComp).length;
+            document.getElementById('result_lzw2_uncomp').innerHTML = "UNLZW Uncompressed size: " + LZString.decompress(json_uncComp).length;
+
+            document.getElementById('result_lzw_comp2').innerHTML = "LZW 2 Compressed size: " + json_cComp2.length;
+            document.getElementById('result_lzw_uncomp2').innerHTML = "LZW 2 UnCompressed size: " + json_uncComp2.length;
+
+            document.getElementById('result_lzw2_comp2').innerHTML = "UNLZW  2 Compressed object: " + LZString.decompress(json_cComp2).length;
+            document.getElementById('result_lzw2_uncomp2').innerHTML = "UNLZW 2 Uncompressed object: " + LZString.decompress(json_uncComp2).length;
         </script>
     </body>
 </html>

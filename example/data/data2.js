@@ -1,4 +1,4 @@
-var obj = {
+var obj2 = {
   "oInputs":{
     "user_apps":{
       "{244FD30F-63F1-49B9-9D98-1150FF4FFCB1}":{
