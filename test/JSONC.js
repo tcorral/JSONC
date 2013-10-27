@@ -2,15 +2,15 @@ describe('JSONC API', function ()
 {
   it('should check that JSONC exist in Namespace', function ()
   {
-    expect( Namespace.JSONC ).not.toBeUndefined();
+    expect( JSONC ).not.toBeUndefined();
   });
   it('should check that JSONC has a compress method', function ()
   {
-    expect(typeof Namespace.JSONC.compress === 'function').toBeTruthy();
+    expect(typeof JSONC.compress === 'function').toBeTruthy();
   });
   it('should check that JSONC has a decompress method', function ()
   {
-    expect(typeof Namespace.JSONC.decompress === 'function').toBeTruthy();
+    expect(typeof JSONC.decompress === 'function').toBeTruthy();
   });
 });
 describe('JSONC.compress', function (){
@@ -24,7 +24,7 @@ describe('JSONC.compress', function (){
       }],
       retrieved;
 
-    retrieved = Namespace.JSONC.compress( original );
+    retrieved = JSONC.compress( original );
 
     expect(retrieved).toEqual(expected);
   });
@@ -39,7 +39,7 @@ describe('JSONC.compress', function (){
       },
       retrieved;
 
-    retrieved = Namespace.JSONC.compress( original );
+    retrieved = JSONC.compress( original );
 
     expect(retrieved).toEqual(expected);
   });
@@ -137,7 +137,7 @@ describe('JSONC.compress', function (){
       },
       retrieved;
 
-    retrieved = Namespace.JSONC.compress( original );
+    retrieved = JSONC.compress( original );
 
     expect(retrieved).toEqual(expected);
   });
@@ -174,7 +174,7 @@ describe('JSONC.compress', function (){
       },
       retrieved;
 
-    retrieved = Namespace.JSONC.compress( original );
+    retrieved = JSONC.compress( original );
 
     expect(retrieved).toEqual(expected);
   });
@@ -191,7 +191,7 @@ describe('JSONC.decompress', function (){
       }],
       retrieved;
 
-    retrieved = Namespace.JSONC.decompress( original );
+    retrieved = JSONC.decompress( original );
 
     expect(retrieved).toEqual(expected);
   });
@@ -206,7 +206,7 @@ describe('JSONC.decompress', function (){
       },
       retrieved;
 
-    retrieved = Namespace.JSONC.decompress( original );
+    retrieved = JSONC.decompress( original );
 
     expect(retrieved).toEqual(expected);
   });
@@ -243,7 +243,7 @@ describe('JSONC.decompress', function (){
       },
       retrieved;
 
-    retrieved = Namespace.JSONC.decompress( original );
+    retrieved = JSONC.decompress( original );
 
     expect(retrieved).toEqual(expected);
   });

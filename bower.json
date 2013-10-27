@@ -1,6 +1,6 @@
 {
   "name": "JSONC",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/tcorral/JSONC.git"

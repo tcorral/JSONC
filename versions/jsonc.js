@@ -201,13 +201,27 @@ var LZString = {
     }
     return result;
   }
-};;(function(ns)
+};;(function ()
 {
 
-  var JSONC = {},
+  var root,
+      JSONC = {},
+      isNodeEnvironment,
       _nCode = -1,
       toString = {}.toString;
 
+  /**
+   * set the correct root depending from the environment.
+   * @type {Object}
+   * @private
+   */
+  root = this;
+  /**
+   * Check if JSONC is loaded in Node.js environment
+   * @type {Boolean}
+   * @private
+   */
+  isNodeEnvironment = typeof exports === 'object' && typeof module === 'object' && typeof module.exports === 'object' && typeof require === 'function';
   /**
    * Checks if the value exist in the array.
    * @param arr
@@ -498,9 +512,19 @@ var LZString = {
     return str ? JSON.parse(str): jsonCopy ;
   };
 
-  /**
-   * Expose the object to the namespace
-   * @type {{}}
+  /*
+   * Expose Hydra to be used in node.js, as AMD module or as global
    */
-  ns.JSONC = JSONC;
-}((this.Namespace = {})));
+  root.JSONC = JSONC;
+  if ( isNodeEnvironment )
+  {
+    module.exports = JSONC;
+  }
+  else if ( typeof define !== 'undefined' )
+  {
+    define( 'jsonc', [], function ()
+    {
+      return JSONC;
+    } );
+  }
+}.call( this ));

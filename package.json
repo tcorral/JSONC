@@ -1,10 +1,10 @@
 {
-  "name": "JSONC",
-  "version": "0.1.0",
+  "name": "jsoncomp",
+  "version": "0.2.0",
   "description": "Compress your JSON to send and get a lot of data to/from server",
   "homepage": "http://tcorral.github.com/JSONC/",
   "author": "Tomas Corral",
-  "main": "./src/Hydra.js",
+  "main": "./src/JSONC.js",
   "keywords": [
     "JSON",
     "compression"
