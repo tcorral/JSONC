@@ -513,7 +513,7 @@ var LZString = {
   };
 
   /*
-   * Expose JSONC to be used in node.js, as AMD module or as global
+   * Expose Hydra to be used in node.js, as AMD module or as global
    */
   root.JSONC = JSONC;
   if ( isNodeEnvironment )
@@ -522,7 +522,7 @@ var LZString = {
   }
   else if ( typeof define !== 'undefined' )
   {
-    define( 'jsonc', [], function ()
+    define( 'jsoncomp', [], function ()
     {
       return JSONC;
     } );

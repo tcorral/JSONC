@@ -319,7 +319,7 @@
   }
   else if ( typeof define !== 'undefined' )
   {
-    define( 'jsonc', [], function ()
+    define( 'jsoncomp', [], function ()
     {
       return JSONC;
     } );
