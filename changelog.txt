@@ -1,3 +1,5 @@
+1.0.0
+    Change the API name of getJSONFromLZWString and getLZWStringFromJSON to pack and unpack that are more readable.
 0.3.0
     Add new methods to allow the user to compress JSON objects using LZW even if the objects are not been compressed using
      JSONC.compress.

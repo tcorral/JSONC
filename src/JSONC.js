@@ -295,7 +295,7 @@
    * @param bCompress
    * @returns {String}
    */
-  JSONC.getLZWStringFromJSON = function( json, bCompress )
+  JSONC.pack = function( json, bCompress )
   {
     var str = JSON.stringify( (bCompress ? JSONC.compress( json ): json) );
     return LZString.compress( str );
@@ -325,7 +325,7 @@
    * @param bDecompress
    * @returns {Object}
    */
-  JSONC.getJSONFromLZWString = function ( lzw, bDecompress )
+  JSONC.unpack = function ( lzw, bDecompress )
   {
     var str = LZString.decompress( lzw ),
         json = JSON.parse( str );

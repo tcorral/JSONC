@@ -297,8 +297,8 @@ var obj = {
         <script type="text/javascript" src="data/data2.js"></script>
         <script type="text/javascript" src="../vendor/lz-string-1.0.2.js"></script>
         <script type="text/javascript">
-            var json_cc = JSONC.getLZWStringFromJSON( obj, true );
-            var unjson_cc = JSONC.getJSONFromLZWString( json_cc );
+            var json_cc = JSONC.pack( obj, true );
+            var unjson_cc = JSONC.unpack( json_cc );
             var json_c = JSONC.compress( obj );
             var json_unc = JSONC.decompress( json_c );
             var json_c2 = JSONC.compress( obj2 );

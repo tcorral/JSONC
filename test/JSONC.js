@@ -247,7 +247,7 @@ describe('JSONC.decompress', function (){
 
     expect(retrieved).toEqual(expected);
   });
-  describe('JSONC.getLZWStringFromJSON', function(){
+  describe('JSONC.pack', function(){
     it('should test that returns the expected string', function(){
       var retrieved,
           obj = {
@@ -266,7 +266,7 @@ describe('JSONC.decompress', function (){
           },
           expected = "㞂…ࡠ⸒׀浑䂦ٲ밈쀚ኣʠᦞਅ申耖㌞⸁壘쪸͡ꀗ䚐";
 
-      retrieved = JSONC.getLZWStringFromJSON( obj );
+      retrieved = JSONC.pack( obj );
 
       expect(retrieved).toEqual(expected);
     });
@@ -288,12 +288,12 @@ describe('JSONC.decompress', function (){
         },
         expected = "㞂•⁜ඪࠥȰڄȒ肙偡⠙聟既耖吴聖岠ඐ腵借䩓℀ᜁ䰆盢ኔḃ멦ሏ᜾菱䢅쀉聃溪䈔␀";
 
-      retrieved = JSONC.getLZWStringFromJSON( obj, true );
+      retrieved = JSONC.pack( obj, true );
 
       expect(retrieved).toEqual(expected);
     });
   });
-  describe('JSONC.getJSONFromLZWString', function(){
+  describe('JSONC.unpack', function(){
     it('should test that returns the expected object', function(){
       var retrieved,
         obj = {
@@ -312,7 +312,7 @@ describe('JSONC.decompress', function (){
         },
         lzw = "㞂…ࡠ⸒׀浑䂦ٲ밈쀚ኣʠᦞਅ申耖㌞⸁壘쪸͡ꀗ䚐";
 
-      retrieved = JSONC.getJSONFromLZWString( lzw );
+      retrieved = JSONC.unpack( lzw );
 
       expect(retrieved).toEqual(obj);
     });
@@ -334,7 +334,7 @@ describe('JSONC.decompress', function (){
         },
         lzw = "㞂•⁜ඪࠥȰڄȒ肙偡⠙聟既耖吴聖岠ඐ腵借䩓℀ᜁ䰆盢ኔḃ멦ሏ᜾菱䢅쀉聃溪䈔␀";
 
-      retrieved = JSONC.getJSONFromLZWString( lzw, true );
+      retrieved = JSONC.unpack( lzw, true );
 
       expect(retrieved).toEqual(obj);
     });

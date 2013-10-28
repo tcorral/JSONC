@@ -1,6 +1,6 @@
 JSONC
 =====
-# Update to version 0.3.0
+# Update to version 1.0.0
 
 [![Build Status](https://travis-ci.org/tcorral/JSONC.png)](https://travis-ci.org/tcorral/JSONC)
 
@@ -19,9 +19,9 @@ JSONC has two differents approaches to reduce the size of the amount of data to 
     * Be careful with this method because it's really impressive if you use it with a JSON with a big amount of data, but it
 could be awful if you use it to compress JSON objects with small amount of data because it could increase the final size.
     * The rate compression could variate from 7.5% to 32.81% depending of the type and values of data.
-* *JSONC.getLZWStringFromJSON* - Compress JSON objects using LZW compression algorithm, to make the job JSONC uses the
+* *JSONC.pack* - Compress JSON objects using LZW compression algorithm, to make the job JSONC uses the
 lz-string library from @pieroxy - https://github.com/pieroxy/lz-string/
-    * You can use getLZWStringFromJSON to compress any JSON objects even if these objects are not been compressed using JSONC
+    * You can use pack to compress any JSON objects even if these objects are not been compressed using JSONC
 See Usage for more details.
 
 ##Usage
@@ -39,22 +39,22 @@ See Usage for more details.
 ####Compress a normal JSON object as a LZW string:
 
     // Returns the LZW representation as string of the JSON object.
-    var lzwString = JSONC.getLZWStringFromJSON( json );
+    var lzwString = JSONC.pack( json );
 
 ####Compress a JSON object as a LZW string after compress it using JSONC:
 
     // Returns the LZW representation as string of the JSON object.
-    var lzwString = JSONC.getLZWStringFromJSON( json, true );
+    var lzwString = JSONC.pack( json, true );
 
 ####Decompress a normal JSON object from a LZW string:
 
     // Returns the original JSON object.
-    var json = JSONC.getJSONFromLZWString( lzwString );
+    var json = JSONC.unpack( lzwString );
 
 ####Decompress a JSON compressed object using JSONC from a LZW string:
 
     // Returns the original JSON object.
-    var json = JSONC.getJSONFromLZWString( lzwString, true );
+    var json = JSONC.unpack( lzwString, true );
 
 ## Examples of compression
 
