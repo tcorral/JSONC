@@ -13,6 +13,8 @@ and from the server.
 When data comes from server, this data could be GZipped, but this is not possible when the big amount of data comes from
 the browser to the server.
 
+#### JSONC exist only with the idea of change the mind of browser companies to make it an standard directly in JSON object to send data to server.
+
 JSONC has two differents approaches to reduce the size of the amount of data to be transported:
 
 * *JSONC.compress* - Compress JSON objects using a map to reduce the size of the keys in JSON objects.
