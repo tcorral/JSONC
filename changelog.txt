@@ -1,3 +1,7 @@
+1.5.0
+    Change the compression library from lz-string to gzip.js to make it simpler to be implemented in server side
+    Added the PHP class to inflate the compressed data in PHP server.
+    Replace the static example demo with a dynamic demo to be used in a PHP server.
 1.0.0
     Change the API name of getJSONFromLZWString and getLZWStringFromJSON to pack and unpack that are more readable.
 0.3.0

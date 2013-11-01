@@ -1,4 +1,4 @@
-/*global LZString*/
+/*global gzip*/
 (function ()
 {
 
@@ -298,7 +298,7 @@
   JSONC.pack = function( json, bCompress )
   {
     var str = JSON.stringify( (bCompress ? JSONC.compress( json ): json) );
-    return LZString.compress( str );
+    return String.fromCharCode.apply(String, gzip.zip( str ));
   };
   /**
    * Decompress a compressed JSON
@@ -319,16 +319,28 @@
     }
     return str ? JSON.parse(str): jsonCopy ;
   };
+  function getArr(str)
+  {
+    var nIndex = 0,
+      nLen = str.length,
+      arr = [];
+    for(; nIndex < nLen; nIndex++)
+    {
+      arr.push(str.charCodeAt(nIndex));
+    }
+    return arr;
+  }
   /**
    * Returns the JSON object from the LZW string
-   * @param lzw
+   * @param gzipped
    * @param bDecompress
    * @returns {Object}
    */
-  JSONC.unpack = function ( lzw, bDecompress )
+  JSONC.unpack = function ( gzipped, bDecompress )
   {
-    var str = LZString.decompress( lzw ),
-        json = JSON.parse( str );
+    var aArr = getArr( gzipped ),
+      str = String.fromCharCode.apply(String, gzip.unzip( aArr )),
+      json = JSON.parse( str );
     return bDecompress ? JSONC.decompress( json ) : json;
   };
   /*

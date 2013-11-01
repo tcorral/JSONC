@@ -1,3 +1,14 @@
+function getArr(str)
+{
+  var nIndex = 0,
+    nLen = str.length,
+    arr = [];
+  for(; nIndex < nLen; nIndex++)
+  {
+    arr.push(str.charCodeAt(nIndex));
+  }
+  return arr;
+}
 describe('JSONC API', function ()
 {
   it('should check that JSONC exist in Namespace', function ()
@@ -250,93 +261,81 @@ describe('JSONC.decompress', function (){
   describe('JSONC.pack', function(){
     it('should test that returns the expected string', function(){
       var retrieved,
-          obj = {
-            'data': [
-              {
-                'test': 1,
-                'test2': 2,
-                'test3': 3
-              },
-              {
-                'test': 4,
-                'test2': 5,
-                'test3': 6
-              }
-            ]
-          },
-          expected = "㞂…ࡠ⸒׀浑䂦ٲ밈쀚ኣʠᦞਅ申耖㌞⸁壘쪸͡ꀗ䚐";
+        obj = {A:3},
+        backGzip = gzip,
+        gzipped = '{"A":3}';
+
+      gzip = {
+        zip: function()
+        {
+          return [123, 34, 65, 34, 58, 51, 125];
+        }
+      };
 
       retrieved = JSONC.pack( obj );
 
-      expect(retrieved).toEqual(expected);
+      expect(gzipped).toEqual(retrieved);
+
+      gzip = backGzip;
     });
     it('should test that returns the expected string', function(){
       var retrieved,
-        obj = {
-          'data': [
-            {
-              'test': 1,
-              'test2': 2,
-              'test3': 3
-            },
-            {
-              'test': 4,
-              'test2': 5,
-              'test3': 6
-            }
-          ]
-        },
-        expected = "㞂•⁜ඪࠥȰڄȒ肙偡⠙聟既耖吴聖岠ඐ腵借䩓℀ᜁ䰆盢ኔḃ멦ሏ᜾菱䢅쀉聃溪䈔␀";
+        obj = {A:3},
+        backGzip = gzip,
+        gzipped = '{"A":3}';
+
+      gzip = {
+        zip: function()
+        {
+          return [123, 34, 65, 34, 58, 51, 125];
+        }
+      };
 
       retrieved = JSONC.pack( obj, true );
 
-      expect(retrieved).toEqual(expected);
+      expect(gzipped).toEqual(retrieved);
+
+      gzip = backGzip;
     });
   });
   describe('JSONC.unpack', function(){
     it('should test that returns the expected object', function(){
       var retrieved,
-        obj = {
-          'data': [
-            {
-              'test': 1,
-              'test2': 2,
-              'test3': 3
-            },
-            {
-              'test': 4,
-              'test2': 5,
-              'test3': 6
-            }
-          ]
-        },
-        lzw = "㞂…ࡠ⸒׀浑䂦ٲ밈쀚ኣʠᦞਅ申耖㌞⸁壘쪸͡ꀗ䚐";
+        obj = {A:3},
+        backGzip = gzip,
+        gzipped = '{"A":3}';
 
-      retrieved = JSONC.unpack( lzw );
+      gzip = {
+        unzip: function()
+        {
+          return [123, 34, 65, 34, 58, 51, 125];
+        }
+      };
+
+      retrieved = JSONC.unpack( gzipped );
 
       expect(retrieved).toEqual(obj);
+
+      gzip = backGzip;
     });
     it('should test that returns the expected object', function(){
       var retrieved,
-        obj = {
-          'data': [
-            {
-              'test': 1,
-              'test2': 2,
-              'test3': 3
-            },
-            {
-              'test': 4,
-              'test2': 5,
-              'test3': 6
-            }
-          ]
-        },
-        lzw = "㞂•⁜ඪࠥȰڄȒ肙偡⠙聟既耖吴聖岠ඐ腵借䩓℀ᜁ䰆盢ኔḃ멦ሏ᜾菱䢅쀉聃溪䈔␀";
+        obj = {A:3},
+        backGzip = gzip,
+        gzipped = '{"A":3,"_":{"A":"A"}}';
 
-      retrieved = JSONC.unpack( lzw, true );
+      gzip = {
+        unzip: function()
+        {
+          return [123, 34, 65, 34, 58, 51, 44, 34, 95, 34, 58, 123, 34, 65, 34, 58, 34, 65, 34, 125, 125];
+        }
+      };
+
+      retrieved = JSONC.unpack( gzipped, true );
 
       expect(retrieved).toEqual(obj);
+
+      gzip = backGzip;
     });
   });
 });

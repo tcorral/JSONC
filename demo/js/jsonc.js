@@ -3229,7 +3229,7 @@ void function(global, callback) {
     return arr;
   }
   /**
-   * Returns the JSON object from the LZW string
+   * Returns the JSON object from the GZipped string
    * @param gzipped
    * @param bDecompress
    * @returns {Object}

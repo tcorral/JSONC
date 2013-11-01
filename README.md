@@ -1,6 +1,6 @@
 JSONC
 =====
-# Update to version 1.0.0
+# Update to version 1.5.0
 
 [![Build Status](https://travis-ci.org/tcorral/JSONC.png)](https://travis-ci.org/tcorral/JSONC)
 
@@ -19,8 +19,8 @@ JSONC has two differents approaches to reduce the size of the amount of data to 
     * Be careful with this method because it's really impressive if you use it with a JSON with a big amount of data, but it
 could be awful if you use it to compress JSON objects with small amount of data because it could increase the final size.
     * The rate compression could variate from 7.5% to 32.81% depending of the type and values of data.
-* *JSONC.pack* - Compress JSON objects using LZW compression algorithm, to make the job JSONC uses the
-lz-string library from @pieroxy - https://github.com/pieroxy/lz-string/
+* *JSONC.pack* - Compress JSON objects using GZIP compression algorithm, to make the job JSONC uses a modification to
+use the gzip library from @beatgammit - https://github.com/beatgammit/gzip-js
     * You can use pack to compress any JSON objects even if these objects are not been compressed using JSONC
 See Usage for more details.
 
@@ -36,25 +36,25 @@ See Usage for more details.
     // Returns the original JSON object.
     var json = JSONC.decompress( compressedJSON );
 
-####Compress a normal JSON object as a LZW string:
+####Compress a normal JSON object as a Gzipped string:
 
     // Returns the LZW representation as string of the JSON object.
     var lzwString = JSONC.pack( json );
 
-####Compress a JSON object as a LZW string after compress it using JSONC:
+####Compress a JSON object as a Gzipped string after compress it using JSONC:
 
     // Returns the LZW representation as string of the JSON object.
     var lzwString = JSONC.pack( json, true );
 
-####Decompress a normal JSON object from a LZW string:
+####Decompress a normal JSON object from a Gzipped string:
 
     // Returns the original JSON object.
-    var json = JSONC.unpack( lzwString );
+    var json = JSONC.unpack( gzippedString );
 
-####Decompress a JSON compressed object using JSONC from a LZW string:
+####Decompress a JSON compressed object using JSONC from a Gzipped string:
 
     // Returns the original JSON object.
-    var json = JSONC.unpack( lzwString, true );
+    var json = JSONC.unpack( gzippedString, true );
 
 ## Examples of compression
 
@@ -65,12 +65,11 @@ See Usage for more details.
     Compression rate - 7.5%
 
 
-    Original compressed using lz-string - 3822 bytes
-    Compressed using JSONC using lz-string - 3689 bytes
-    Compression rate - 3.4%
+    Original compressed using gzip.js - 5715 bytes
+    Compressed using JSONC using gzip.js - 5761 bytes
 
 
-    Compression rate from original to compressed using JSONC and lz-string - 78.71%
+    Compression rate from original to compressed using JSONC and gzip.js - 66.76%
 
 ####Example data2.js.
 
@@ -79,9 +78,11 @@ See Usage for more details.
     Compression rate - 32.81%
 
 
-    Original compressed using lz-string - 3900 bytes
-    Compressed using JSONC using lz-string - 3113 bytes
-    Compression rate - 20.18%
+    Original compressed using gzip.js - 4279 bytes
+    Compressed using JSONC using gzip.js - 4664 bytes
 
 
-    Compression rate from original to compressed using JSONC and lz-string - 83.64%
+    Compression rate from original to compressed using JSONC and gzip.js - 75.49%
+
+##Next steps
+####Implement the gzip class in different languages (Java, Ruby...)

@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         separator: ';'
       },
       dist: {
-        src: ['vendor/lz-string-1.0.2.js', 'src/JSONC.js'],
+        src: ['vendor/crc32.js', 'vendor/rawdeflate.js', 'vendor/rawinflate.js', 'vendor/gzip.js', 'src/JSONC.js'],
         dest: 'versions/jsonc.js'
       }
     },
@@ -83,5 +83,4 @@ module.exports = function (grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['jshint', 'karma', 'concat', 'uglify', 'compress']);
-
 };
