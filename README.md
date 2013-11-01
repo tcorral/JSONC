@@ -22,7 +22,7 @@ JSONC has two differents approaches to reduce the size of the amount of data to 
 could be awful if you use it to compress JSON objects with small amount of data because it could increase the final size.
     * The rate compression could variate from 7.5% to 32.81% depending of the type and values of data.
 * *JSONC.pack* - Compress JSON objects using GZIP compression algorithm, to make the job JSONC uses a modification to
-use the gzip library from @beatgammit - https://github.com/beatgammit/gzip-js
+use the gzip library, from @beatgammit - https://github.com/beatgammit/gzip-js, in browsers.
     * You can use pack to compress any JSON objects even if these objects are not been compressed using JSONC
 See Usage for more details.
 
