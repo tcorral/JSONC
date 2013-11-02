@@ -1,0 +1,38 @@
+#accordion_data div
+{
+    max-height: 200px;
+}
+.size
+{
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: bold;
+}
+.code
+{
+    font-family: monospace;
+    font-size: 9px;
+}
+.fright
+{
+    float: right;
+    width: 300px;
+}
+#accordion_usage .ui-accordion-header
+{
+    height: 50px;
+}
+input[type=button], input[type=submit]
+{
+    font-size: 11px;
+}
+form div
+{
+    font-size: 12px;
+}
+ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

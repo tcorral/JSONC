@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         separator: ';'
       },
       dist: {
-        src: ['vendor/crc32.js', 'vendor/rawdeflate.js', 'vendor/rawinflate.js', 'vendor/gzip.js', 'src/JSONC.js'],
+        src: ['vendor/base64.js', 'vendor/crc32.js', 'vendor/rawdeflate.js', 'vendor/rawinflate.js', 'vendor/gzip.js', 'src/JSONC.js'],
         dest: 'versions/jsonc.js'
       }
     },

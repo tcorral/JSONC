@@ -262,80 +262,101 @@ describe('JSONC.decompress', function (){
     it('should test that returns the expected string', function(){
       var retrieved,
         obj = {A:3},
-        backGzip = gzip,
-        gzipped = '{"A":3}';
+        packed = '{"a":3}';
 
-      gzip = {
+      window.gzip = {
+        zip: function( str ){
+          return [123, 34, 65, 34, 58, 51, 125];
+        }
+      };
+      window.Base64 = {
+        encode: function( str ){
+          return str.toLowerCase();
+        }
+      };
+
+
+      retrieved = JSONC.pack( obj );
+
+      expect(packed).toEqual(retrieved);
+
+      delete window.Base64;
+      delete window.gzip;
+    });
+    it('should test that returns the expected string', function(){
+      var retrieved,
+        obj = {A:3},
+        packed = '{"a":3}';
+
+      window.gzip = {
         zip: function()
         {
           return [123, 34, 65, 34, 58, 51, 125];
         }
       };
-
-      retrieved = JSONC.pack( obj );
-
-      expect(gzipped).toEqual(retrieved);
-
-      gzip = backGzip;
-    });
-    it('should test that returns the expected string', function(){
-      var retrieved,
-        obj = {A:3},
-        backGzip = gzip,
-        gzipped = '{"A":3}';
-
-      gzip = {
-        zip: function()
-        {
-          return [123, 34, 65, 34, 58, 51, 125];
+      window.Base64 = {
+        encode: function( str ){
+          return str.toLowerCase();
         }
       };
 
       retrieved = JSONC.pack( obj, true );
 
-      expect(gzipped).toEqual(retrieved);
+      expect(packed).toEqual(retrieved);
 
-      gzip = backGzip;
+      delete window.Base64;
+      delete window.gzip;
     });
   });
   describe('JSONC.unpack', function(){
     it('should test that returns the expected object', function(){
       var retrieved,
         obj = {A:3},
-        backGzip = gzip,
-        gzipped = '{"A":3}';
+        packed = '{"A":3}';
 
-      gzip = {
+      window.gzip = {
         unzip: function()
         {
           return [123, 34, 65, 34, 58, 51, 125];
         }
       };
+      window.Base64 = {
+        decode: function( str )
+        {
+          return str;
+        }
+      };
 
-      retrieved = JSONC.unpack( gzipped );
+      retrieved = JSONC.unpack( packed );
 
       expect(retrieved).toEqual(obj);
 
-      gzip = backGzip;
+      delete window.Base64;
+      delete window.gzip;
     });
     it('should test that returns the expected object', function(){
       var retrieved,
         obj = {A:3},
-        backGzip = gzip,
-        gzipped = '{"A":3,"_":{"A":"A"}}';
-
-      gzip = {
+        packed = '{"A":3,"_":{"A":"A"}}';
+      window.gzip  = {
         unzip: function()
         {
           return [123, 34, 65, 34, 58, 51, 44, 34, 95, 34, 58, 123, 34, 65, 34, 58, 34, 65, 34, 125, 125];
         }
       };
+      window.Base64 = {
+        decode: function( str )
+        {
+          return str;
+        }
+      };
 
-      retrieved = JSONC.unpack( gzipped, true );
+      retrieved = JSONC.unpack( packed, true );
 
       expect(retrieved).toEqual(obj);
 
-      gzip = backGzip;
+      delete window.Base64;
+      delete window.gzip;
     });
   });
 });

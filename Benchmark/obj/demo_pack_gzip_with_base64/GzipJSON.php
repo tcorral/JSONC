@@ -22,10 +22,10 @@ class GzipJSON {
      */
     function decompress( $data )
     {
-        $json = json_decode( $this->decode_gzip( utf8_decode( $data ) ), true );
+        $json = json_decode( $this->decode_gzip( utf8_decode( base64_decode( $data )  ) ));
         if ( is_null( $json ) )
         {
-            $json = json_decode( $data, true );
+            $json = json_decode( $data );
         }
         return $json;
     }
