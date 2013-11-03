@@ -1,6 +1,6 @@
 JSONC
 =====
-# Update to version 1.5.0
+# Update to version 1.6.1
 
 [![Build Status](https://travis-ci.org/tcorral/JSONC.png)](https://travis-ci.org/tcorral/JSONC)
 
