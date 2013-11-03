@@ -109,15 +109,16 @@
    * @private
    */
   function _numberToKey(index, totalChar, offset) {
-    var aArr = [],
+    var sKeys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=_!?()*',
+      aArr = [],
       currentChar = index;
-    totalChar = totalChar || 26;
-    offset = offset || 65;
+    totalChar = totalChar || sKeys.length;
+    offset = offset || 0;
     while (currentChar >= totalChar) {
-      aArr.push((currentChar % totalChar) + offset);
+      aArr.push(sKeys.charCodeAt((currentChar % totalChar) + offset));
       currentChar = Math.floor(currentChar / totalChar - 1);
     }
-    aArr.push(currentChar + offset);
+    aArr.push(sKeys.charCodeAt(currentChar + offset));
     return aArr.reverse();
   }
 
@@ -271,7 +272,7 @@
    */
   JSONC.pack = function (json, bCompress) {
     var str = JSON.stringify((bCompress ? JSONC.compress(json) : json));
-    return Base64.encode(String.fromCharCode.apply(String, gzip.zip(str)));
+    return Base64.encode(String.fromCharCode.apply(String, gzip.zip(str,{level:9})));
   };
   /**
    * Decompress a compressed JSON
@@ -307,7 +308,7 @@
    */
   JSONC.unpack = function (gzipped, bDecompress) {
     var aArr = getArr(Base64.decode(gzipped)),
-      str = String.fromCharCode.apply(String, gzip.unzip(aArr)),
+      str = String.fromCharCode.apply(String, gzip.unzip(aArr,{level:9})),
       json = JSON.parse(str);
     return bDecompress ? JSONC.decompress(json) : json;
   };

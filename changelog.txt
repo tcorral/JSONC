@@ -1,3 +1,5 @@
+1.6.1
+    Make improvement in _numberToKeys for objects with a lot of different keys.
 1.6.0
     Checking in Fiddler have been found a problem with a simple Gzip version, if Gzipped when the data is transported
     via POST it's url encoded and it makes grow the final size being transported, to fix it a Base64 encode has been added.

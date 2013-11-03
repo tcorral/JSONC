@@ -1,6 +1,6 @@
 {
   "name": "jsoncomp",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Compress your JSON to send and get a lot of data to/from server",
   "homepage": "http://tcorral.github.com/JSONC/",
   "author": "Tomas Corral",

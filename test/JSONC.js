@@ -114,8 +114,8 @@ describe('JSONC.compress', function (){
           "X":'test23',
           "Y":'test24',
           "Z":'test25',
-          "AA":'test26',
-          "AB":'test27'
+          "a":'test26',
+          "b":'test27'
         },
         "A":'result',
         "B":'result',
@@ -143,8 +143,8 @@ describe('JSONC.compress', function (){
         "X":'result',
         "Y":'result',
         "Z":'result',
-        "AA":'result',
-        "AB":'result'
+        "a":'result',
+        "b":'result'
       },
       retrieved;
 
