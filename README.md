@@ -13,7 +13,8 @@ and from the server.
 When data comes from server, this data could be GZipped, but this is not possible when the big amount of data comes from
 the browser to the server.
 
-##### JSONC must serve to transform the way browser vendors think,  to implement the standard JSON an economical way to send information to the server, so the reason for existence of JSONC is to cease to exist in the not far away.
+##### JSONC is born to change the way browser vendors think and become an standard when send information to the server efficiently. 
+
 
 JSONC has two differents approaches to reduce the size of the amount of data to be transported:
 
