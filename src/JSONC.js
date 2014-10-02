@@ -307,9 +307,27 @@
    * @returns {Object}
    */
   JSONC.unpack = function (gzipped, bDecompress) {
-    var aArr = getArr(Base64.decode(gzipped)),
-      str = String.fromCharCode.apply(String, gzip.unzip(aArr,{level:9})),
-      json = JSON.parse(str);
+    var aArr = getArr(Base64.decode(gzipped));
+    var str, unzipped = gzip.unzip(aArr,{level:9});
+    try{
+      str = String.fromCharCode.apply(String, unzipped);
+    }catch(e){
+      if(e instanceof RangeError){
+        //Hit the max number of arguments for the JS engine
+        str = function(buffer) {
+          var binary = '';
+          var bytes = new Uint8Array(buffer);
+          var len = bytes.byteLength;
+          for (var i=0; i<len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          return binary;
+        }(unzipped);
+      }else{
+        throw(e);
+      }
+    }
+    var json = JSON.parse(str);
     return bDecompress ? JSONC.decompress(json) : json;
   };
   /*
