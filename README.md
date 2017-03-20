@@ -29,41 +29,41 @@ use the gzip library and it encodes the gzipped string with Base64 to avoid url 
    * You can use pack to compress any JSON objects even if these objects are not been compressed using JSONC
 See Usage for more details.
 
-##Usage
+## Usage
 
-####Compress a JSON object:
+#### Compress a JSON object:
 
     // Returns a JSON object but compressed.
     var compressedJSON = JSONC.compress( json );
 
-####Decompress a JSON object:
+#### Decompress a JSON object:
 
     // Returns the original JSON object.
     var json = JSONC.decompress( compressedJSON );
 
-####Compress a normal JSON object as a Gzipped string:
+#### Compress a normal JSON object as a Gzipped string:
 
     // Returns the LZW representation as string of the JSON object.
     var lzwString = JSONC.pack( json );
 
-####Compress a JSON object as a Gzipped string after compress it using JSONC:
+#### Compress a JSON object as a Gzipped string after compress it using JSONC:
 
     // Returns the LZW representation as string of the JSON object.
     var lzwString = JSONC.pack( json, true );
 
-####Decompress a normal JSON object from a Gzipped string:
+#### Decompress a normal JSON object from a Gzipped string:
 
     // Returns the original JSON object.
     var json = JSONC.unpack( gzippedString );
 
-####Decompress a JSON compressed object using JSONC from a Gzipped string:
+#### Decompress a JSON compressed object using JSONC from a Gzipped string:
 
     // Returns the original JSON object.
     var json = JSONC.unpack( gzippedString, true );
 
 ## Examples of compression
 
-####Example data.js.
+#### Example data.js.
 
     Original - 17331 bytes
     Compressed using JSONC - 16025 bytes
@@ -76,7 +76,7 @@ See Usage for more details.
 
     Compression rate from original to compressed using JSONC and gzip.js - 66.76%
 
-####Example data2.js.
+#### Example data2.js.
 
     Original - 19031 bytes
     Compressed using JSONC - 12787 bytes
@@ -89,5 +89,5 @@ See Usage for more details.
 
     Compression rate from original to compressed using JSONC and gzip.js - 75.49%
 
-##Next steps
-####Implement the gzip class in different languages (Java, Ruby...)
+## Next steps
+#### Implement the gzip class in different languages (Java, Ruby...)
