@@ -272,7 +272,27 @@
    */
   JSONC.pack = function (json, bCompress) {
     var str = JSON.stringify((bCompress ? JSONC.compress(json) : json));
-    return Base64.encode(String.fromCharCode.apply(String, gzip.zip(str,{level:9})));
+    var zipped = gzip.zip(str,{level:9});
+    var data;
+     try{
+      data = String.fromCharCode.apply(String,zipped);
+    }catch(e){
+      if(e instanceof RangeError){
+        //Hit the max number of arguments for the JS engine
+        data = (function(buffer) {
+          var binary = '';
+          var bytes = new Uint8Array(buffer);
+          var len = bytes.byteLength;
+          for (var i=0; i<len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          return binary;
+        }(zipped));
+      }else{
+        throw(e);
+      }
+    }
+    return Base64.encode(data);
   };
   /**
    * Decompress a compressed JSON
@@ -307,9 +327,27 @@
    * @returns {Object}
    */
   JSONC.unpack = function (gzipped, bDecompress) {
-    var aArr = getArr(Base64.decode(gzipped)),
-      str = String.fromCharCode.apply(String, gzip.unzip(aArr,{level:9})),
-      json = JSON.parse(str);
+    var aArr = getArr(Base64.decode(gzipped));
+    var str, unzipped = gzip.unzip(aArr,{level:9});
+    try{
+      str = String.fromCharCode.apply(String, unzipped);
+    }catch(e){
+      if(e instanceof RangeError){
+        //Hit the max number of arguments for the JS engine
+        str = (function(buffer) {
+          var binary = '';
+          var bytes = new Uint8Array(buffer);
+          var len = bytes.byteLength;
+          for (var i=0; i<len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          return binary;
+        }(unzipped));
+      }else{
+        throw(e);
+      }
+    }
+    var json = JSON.parse(str);
     return bDecompress ? JSONC.decompress(json) : json;
   };
   /*

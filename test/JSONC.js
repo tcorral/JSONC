@@ -358,5 +358,33 @@ describe('JSONC.decompress', function (){
       delete window.Base64;
       delete window.gzip;
     });
+    it('should test decompressing a large object', function(){
+      var retrieved,
+        obj = largeTestObj.origData,
+        packed = largeTestObj.gzData;
+
+      window.gzip = {
+        unzip: function()
+        {
+          /*
+          * need to split the array in two because PhantomJS can't even parse the full size
+          */
+          return largeTestObj.gunzippedData_0.concat(largeTestObj.gunzippedData_1);
+        }
+      };
+      window.Base64 = {
+        decode: function( str )
+        {
+          return str;
+        }
+      };
+
+      retrieved = JSONC.unpack( packed );
+
+      expect(retrieved).toEqual(obj);
+
+      delete window.Base64;
+      delete window.gzip;
+    });
   });
 });
