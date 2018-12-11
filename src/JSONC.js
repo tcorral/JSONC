@@ -202,7 +202,7 @@
 
     for (nIndex = 0; nIndex < nLenKeys; nIndex++) {
       aKey = aKeys[nIndex];
-      str = str.replace(new RegExp(escapeRegExp('"' + aKey[1] + '"'), 'g'), '"' + aKey[0] + '"');
+      str = str.replace(new RegExp('(?:"'+escapeRegExp(aKey[1])+'"):', 'g'), '"' + aKey[0] + '":');
     }
     obj = JSON.parse(str);
     obj._ = oKeys;
@@ -236,7 +236,7 @@
     str = JSON.stringify(jsonCopy);
     for (sKey in oKeys) {
       if (oKeys.hasOwnProperty(sKey)) {
-        str = str.replace(new RegExp('"' + sKey + '"', 'g'), '"' + oKeys[sKey] + '"');
+        str = str.replace(new RegExp('(?:"'+sKey+'"):', 'g'), '"' + oKeys[sKey] + '":');
       }
     }
     return str;
