@@ -236,7 +236,7 @@
     str = JSON.stringify(jsonCopy);
     for (sKey in oKeys) {
       if (oKeys.hasOwnProperty(sKey)) {
-        str = str.replace(new RegExp('"' + sKey + '"', 'g'), '"' + oKeys[sKey] + '"');
+        str = str.replace(new RegExp('(?:"'+sKey+'"):', 'g'), '"' + oKeys[sKey] + '":');
       }
     }
     return str;
